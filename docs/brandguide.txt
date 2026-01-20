@@ -1,0 +1,7 @@
+primary: #007A33
+ash 
+black
+white 
+stroke
+
+font is Plus Jakarta Sans
