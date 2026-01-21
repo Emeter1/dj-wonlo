@@ -3,7 +3,7 @@
     'fixed w-full z-50 transition-all duration-300',
     isScrolled ? 'bg-black shadow-md py-4' : 'bg-black py-6',
   ]">
-    <div class="container-custom flex justify-between items-center">
+    <div class="px-6 flex justify-between items-center">
       <NuxtLink to="/" class="flex items-center gap-2">
         <img src="~/assets/img/lgo.png" alt="JFK Logo" class="h-10 w-auto" />
       </NuxtLink>
