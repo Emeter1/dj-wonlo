@@ -12,8 +12,8 @@
             </h2>
           </div>
           <h3 class="text-xl font-medium text-white mb-2">John Kayode Fayemi, PhD.</h3>
-          <p class="text-gray-400 text-sm leading-relaxed max-w-sm">
-            Former Governor of Ekiti State, Nigeria | Former Minister of Mines & Steel Development
+          <p class="text-gray-400 text-xs leading-relaxed max-w-sm">
+            Governor of Ekiti State, Nigeria (2010–2014; 2018–2022) | Minister of Mines & Steel Development (2015-2018) | Chairman, Nigeria Governors’ Forum (2019 - 2022) | Pioneer President, Forum of Regions of Africa (2022– ).
           </p>
         </div>
 

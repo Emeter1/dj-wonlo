@@ -24,8 +24,11 @@
             University and later earning a PhD in War Studies at King's College
             London — he has built a reputation as a thought leader and
             strategist on civil-military relations, governance, and security
-            sector reform. His journey has made him not just a Nigerian leader,
-            but a respected voice in Africa and across the world.
+            sector reform. Currently, he is a Visiting Professor at King’s
+            College London and holds a Senior Advisory position at Albright
+            Stonebridge Group, Washington DC, USA. His journey has made him not
+            just a Nigerian leader, but a respected voice in Africa and across
+            the world.
           </p>
         </div>
         <!-- Image -->
@@ -35,7 +38,7 @@
           >
             <img
               src="~/assets/img/f95939f380fe9126b93407fcbaa8cd1e4bc6a365.jpg"
-              alt="Dr. John Kayode Fayemi in academic regalia"
+              alt="Dr. John Kayode Fayemi Solo Portrait"
               class="w-full h-auto object-cover"
             />
           </div>

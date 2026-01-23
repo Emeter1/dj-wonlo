@@ -16,13 +16,13 @@
             and democracy in Africa.
           </p>
         </div>
-        <a
-          href="#"
+        <NuxtLink
+          to="/publications"
           class="inline-flex items-center gap-2 border border-gray-200 px-6 py-3 rounded-lg hover:border-[#007A33] hover:text-[#007A33] transition-colors font-semibold text-gray-900 whitespace-nowrap group"
         >
           View all
           <span class="group-hover:translate-x-1 transition-transform">→</span>
-        </a>
+        </NuxtLink>
       </div>
 
       <!-- Grid -->
@@ -34,7 +34,7 @@
           >
             <!-- Placeholder for Book Cover -->
             <img
-              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=800&auto=format&fit=crop"
               alt="Mercenaries: An African Security Dilemma"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
@@ -67,7 +67,7 @@
             class="overflow-hidden rounded-xl mb-6 aspect-[3/4] bg-gray-100 shadow-md relative"
           >
             <img
-              src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?q=80&w=800&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1589829545856-1100557d828d?q=80&w=800&auto=format&fit=crop"
               alt="Regaining the Legacy"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
@@ -99,7 +99,7 @@
             class="overflow-hidden rounded-xl mb-6 aspect-[3/4] bg-gray-100 shadow-md relative"
           >
             <img
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1541913007421-5079870be06f?q=80&w=800&auto=format&fit=crop"
               alt="Democracy in Action"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
