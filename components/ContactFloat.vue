@@ -1,21 +1,30 @@
 <template>
   <div class="fixed bottom-8 right-8 z-50">
     <!-- Floating Button -->
-    <button
-      @click="toggleModal"
-      class="w-16 h-16 bg-[#007A33] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 group"
-      ref="fabRef"
+    <Transition
+      enter-active-class="transition duration-500 ease-out"
+      enter-from-class="scale-0 rotate-[-90deg] opacity-0"
+      enter-to-class="scale-100 rotate-0 opacity-100"
+      leave-active-class="transition duration-300 ease-in"
+      leave-from-class="scale-100 rotate-0 opacity-100"
+      leave-to-class="scale-0 rotate-90 opacity-0"
     >
-      <MessageSquare v-if="!isOpen" class="w-7 h-7" />
-      <X v-else class="w-7 h-7" />
-
-      <!-- Tooltip -->
-      <span
-        class="absolute right-20 bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-gray-100"
+      <button
+        v-if="!isOpen"
+        @click="toggleModal(true)"
+        class="w-16 h-16 bg-[#007A33] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300 group"
+        ref="fabRef"
       >
-        Enquire about JKF
-      </span>
-    </button>
+        <MessageSquare class="w-7 h-7" />
+
+        <!-- Tooltip -->
+        <span
+          class="absolute right-20 bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-bold shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-gray-100"
+        >
+          Enquire about JKF
+        </span>
+      </button>
+    </Transition>
 
     <!-- Contact Modal -->
     <div
@@ -24,11 +33,19 @@
       ref="modalRef"
     >
       <!-- Header -->
-      <div class="bg-[#007A33] p-6 text-white">
-        <h3 class="text-xl font-bold">Direct Inquiry</h3>
-        <p class="text-green-100 text-xs mt-1">
-          Send a message directly to Dr. Fayemi's office.
-        </p>
+      <div class="bg-[#007A33] p-6 text-white flex justify-between items-start">
+        <div>
+          <h3 class="text-xl font-bold">Direct Inquiry</h3>
+          <p class="text-green-100 text-xs mt-1">
+            Send a message directly to Dr. Fayemi's office.
+          </p>
+        </div>
+        <button
+          @click="toggleModal(true)"
+          class="p-1 hover:bg-white/10 rounded-lg transition-colors"
+        >
+          <X class="w-6 h-6" />
+        </button>
       </div>
 
       <!-- Form -->
@@ -124,7 +141,14 @@ import { ref, onMounted } from "vue";
 import { MessageSquare, X, Send, Check } from "lucide-vue-next";
 import gsap from "gsap";
 
-const isOpen = ref(false);
+const {
+  isContactModalOpen: isOpen,
+  toggleContactModal,
+  openContactModal,
+  closeContactModal,
+  hasBeenOpened,
+  startAutoPopupTimer,
+} = useContact();
 const isSent = ref(false);
 const isSubmitting = ref(false);
 const fabRef = ref(null);
@@ -137,11 +161,13 @@ const form = ref({
   message: "",
 });
 
-const toggleModal = () => {
+const toggleModal = (manual = false) => {
+  if (manual) {
+    sessionStorage.setItem("jfk_contact_interacted", "true");
+  }
+
   if (!isOpen.value) {
-    isOpen.value = true;
-    // Entrance animation handled by nextTick or watcher would be better,
-    // but for simple toggle we use a small timeout or v-show logic.
+    openContactModal();
     setTimeout(() => {
       gsap.from(".contact-modal", {
         y: 20,
@@ -159,7 +185,7 @@ const toggleModal = () => {
       duration: 0.3,
       ease: "power2.in",
       onComplete: () => {
-        isOpen.value = false;
+        closeContactModal();
       },
     });
   }
@@ -167,8 +193,8 @@ const toggleModal = () => {
 
 const handleSubmit = async () => {
   isSubmitting.value = true;
-  // Simulate API call
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+  const targetEmail = "jfk@fayemi.com";
+  console.log(`Sending message to ${targetEmail}`, form.value);
 
   // Reset form
   form.value = {
@@ -183,13 +209,9 @@ const handleSubmit = async () => {
 };
 
 onMounted(() => {
-  // Subtle bounce for FAB on load
-  gsap.from(fabRef.value, {
-    scale: 0,
-    rotate: -90,
-    delay: 1,
-    duration: 1,
-    ease: "back.out(1.7)",
+  // Call the centralized timer from our composable
+  startAutoPopupTimer(() => {
+    toggleModal(false);
   });
 });
 </script>

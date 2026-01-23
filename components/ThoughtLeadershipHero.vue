@@ -1,46 +1,67 @@
 <template>
   <section
-    class="relative h-[60vh] min-h-[500px] w-full overflow-hidden flex items-center"
+    class="relative h-[80vh] min-h-[600px] w-full overflow-hidden flex items-center bg-black font-sans"
     ref="heroSection"
   >
-    <!-- Background Image -->
+    <!-- Background Content -->
     <div class="absolute inset-0 z-0">
       <img
         ref="bgImage"
         :src="heroImage"
-        alt="Dr. Fayemi Reading"
-        class="w-full h-full object-cover object-center scale-110"
+        alt="Dr. Fayemi Intellectual Capital"
+        class="w-full h-full object-cover object-center opacity-40 scale-105"
       />
-      <!-- Gradient Overlay -->
+      <!-- Premium Overlays -->
       <div
-        class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"
+        class="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black"
+      ></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent"
       ></div>
     </div>
 
     <!-- Content -->
     <div class="container-custom relative z-10 w-full">
-      <div class="max-w-3xl text-white">
+      <div class="max-w-4xl">
+        <!-- Subheading -->
+        <div class="overflow-hidden mb-4">
+          <span
+            class="block text-[#007A33] font-bold tracking-[0.2em] uppercase text-sm md:text-base animate-subhead"
+          >
+            Ideas & Influence
+          </span>
+        </div>
+
         <h1
-          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+          class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] mb-8 tracking-tighter"
         >
-          <div class="overflow-hidden">
-            <span class="block title-line translate-y-full opacity-0"
-              >Intellectual Capital</span
-            >
+          <div class="overflow-hidden pb-2">
+            <span class="block title-line">Thought</span>
           </div>
           <div class="overflow-hidden">
-            <span class="block title-line translate-y-full opacity-0"
-              >& Vision</span
-            >
+            <span class="block title-line">Leadership</span>
           </div>
         </h1>
-        <p
-          class="text-lg md:text-xl text-gray-200 max-w-xl leading-relaxed font-light opacity-0 translate-y-8 hero-text"
-        >
-          Shaping the future of governance through rigorous scholarship, policy
-          innovation, and strategic dialogue.
-        </p>
+
+        <div class="max-w-2xl">
+          <p
+            class="text-xl md:text-2xl text-gray-300 leading-relaxed font-light hero-text mb-10"
+          >
+            Shaping the discourse on governance, innovation, and the future of
+            Africa through compelling narratives and strategic foresight.
+          </p>
+
+          <!-- Interaction Elements or Scroll Indicator could go here -->
+        </div>
       </div>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="absolute bottom-0 right-0 p-12 hidden lg:block">
+      <div class="w-32 h-[1px] bg-white/20 mb-4"></div>
+      <p class="text-white/40 text-xs tracking-widest uppercase vertical-text">
+        JKF Intellectual Capital
+      </p>
     </div>
   </section>
 </template>
@@ -54,41 +75,53 @@ const heroSection = ref(null);
 const bgImage = ref(null);
 
 onMounted(() => {
-  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
   // Initial Set
-  gsap.set(".title-line", { y: "100%", opacity: 0 });
-  gsap.set(".hero-text", { y: 30, opacity: 0 });
-  gsap.set(bgImage.value, { scale: 1.2 });
+  gsap.set(".title-line", { y: "110%", rotate: 2 });
+  gsap.set(".animate-subhead", { x: -20, opacity: 0 });
+  gsap.set(".hero-text", { y: 40, opacity: 0 });
+  gsap.set(bgImage.value, { scale: 1.15, filter: "blur(10px)" });
 
-  // Animation
+  // Animation Sequence
   tl.to(
     bgImage.value,
     {
-      scale: 1,
+      scale: 1.05,
+      filter: "blur(0px)",
       duration: 2.5,
       ease: "power2.out",
     },
     0
   )
     .to(
+      ".animate-subhead",
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+      },
+      0.5
+    )
+    .to(
       ".title-line",
       {
         y: "0%",
-        opacity: 1,
-        duration: 1,
-        stagger: 0.15,
+        rotate: 0,
+        duration: 1.5,
+        stagger: 0.1,
+        ease: "expo.out",
       },
-      0.5
+      0.6
     )
     .to(
       ".hero-text",
       {
         y: 0,
         opacity: 1,
-        duration: 0.8,
+        duration: 1,
       },
-      0.9
+      1
     );
 });
 </script>
@@ -96,5 +129,18 @@ onMounted(() => {
 <style scoped>
 .container-custom {
   @apply container mx-auto px-6;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>

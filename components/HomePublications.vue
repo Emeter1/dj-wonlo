@@ -17,7 +17,7 @@
           </p>
         </div>
         <NuxtLink
-          to="/publications"
+          to="/thought-leadership"
           class="inline-flex items-center gap-2 border border-gray-200 px-6 py-3 rounded-lg hover:border-[#007A33] hover:text-[#007A33] transition-colors font-semibold text-gray-900 whitespace-nowrap group"
         >
           View all

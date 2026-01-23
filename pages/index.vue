@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <TheHero />
-        <HomeBioSummary />
-        <HomeAchievements />
-        <HomePublications />
-        <HomeKeynote />
-    </div>
+  <div>
+    <TheHero />
+    <HomeBioSummary />
+    <HomeAchievements />
+    <HomePublications />
+    <HomeKeynote />
+  </div>
 </template>
 
 <script setup>
