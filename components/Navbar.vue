@@ -103,13 +103,12 @@ const navLinks = [
   { name: "Contact Us", path: "action:contact" },
 ];
 
-const { openContactModal } = useContact();
-
 const handleNavClick = (link) => {
   isMobileMenuOpen.value = false;
   if (link.path === "action:contact") {
-    sessionStorage.setItem("jfk_contact_interacted", "true");
-    openContactModal();
+    if (window.Tawk_API && window.Tawk_API.toggle) {
+      window.Tawk_API.toggle();
+    }
   }
 };
 
@@ -135,3 +134,9 @@ onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
 });
 </script>
+
+<style scoped>
+.container-custom {
+  @apply container mx-auto px-6;
+}
+</style>

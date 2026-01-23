@@ -29,7 +29,7 @@
     <!-- Contact Modal -->
     <div
       v-if="isOpen"
-      class="absolute bottom-20 right-0 w-[350px] md:w-[400px] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden contact-modal"
+      class="fixed md:absolute bottom-32 md:bottom-20 left-4 right-4 md:left-auto md:right-0 md:w-[400px] bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden contact-modal"
       ref="modalRef"
     >
       <!-- Header -->
@@ -218,6 +218,12 @@ onMounted(() => {
 
 <style scoped>
 .contact-modal {
-  transform-origin: bottom right;
+  transform-origin: bottom center;
+}
+
+@media (min-width: 768px) {
+  .contact-modal {
+    transform-origin: bottom right;
+  }
 }
 </style>
