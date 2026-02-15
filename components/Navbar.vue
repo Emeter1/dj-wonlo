@@ -1,143 +1,161 @@
 <template>
-  <nav
-    :class="[
-      'fixed w-full z-50 transition-all duration-300',
-      isScrolled ? 'bg-black shadow-md py-4' : 'bg-black py-6',
-    ]"
+  <nav 
+    class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-white/5"
+    :class="[isScrolled ? 'bg-dj-black/90 backdrop-blur-md py-4' : 'bg-transparent py-6']"
   >
-    <div class="px-6 flex justify-between items-center">
-      <NuxtLink to="/" class="flex items-center gap-2">
-        <img src="~/assets/img/lgo.png" alt="JFK Logo" class="h-10 w-auto" />
+    <div class="container mx-auto px-6 flex items-center justify-between">
+      <!-- Logo -->
+      <NuxtLink to="/" class="flex items-center gap-3 group no-underline">
+        <img src="~/assets/css/img/dj_wonlo_no_text-removebg-preview.png" alt="DJ Wonlo Logo" class="h-10 w-auto group-hover:scale-110 transition-transform duration-300" />
+        <div class="text-2xl font-display font-bold tracking-widest text-white uppercase">
+          <span class="text-dj-primary group-hover:text-white transition-colors duration-300">DJ</span> 
+          <span class="group-hover:text-dj-primary transition-colors duration-300"> Wonlo</span>
+        </div>
       </NuxtLink>
 
       <!-- Desktop Menu -->
       <div class="hidden md:flex items-center gap-8">
-        <div v-for="link in navLinks" :key="link.path">
-          <button
-            v-if="link.path.startsWith('action:')"
-            @click="handleNavClick(link)"
-            class="relative group font-medium text-white transition-colors pb-1"
+        <template v-for="link in links" :key="link.name">
+          <!-- Scroll Link for Home Page -->
+          <a 
+            v-if="link.isScroll && isHome"
+            :href="link.href"
+            @click.prevent="scrollToSection(link.href)"
+            class="text-sm font-display uppercase tracking-widest text-gray-300 hover:text-dj-primary transition-colors duration-300 relative group cursor-pointer"
           >
             {{ link.name }}
-            <span
-              class="absolute left-0 bottom-0 w-full h-[2px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out origin-left"
-            ></span>
-          </button>
-          <NuxtLink
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-dj-primary transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          
+          <!-- Regular Link for Other Pages -->
+          <NuxtLink 
             v-else
-            :to="link.path"
-            class="relative group font-medium text-white transition-colors pb-1"
+            :to="link.href"
+            class="text-sm font-display uppercase tracking-widest text-gray-300 hover:text-dj-primary transition-colors duration-300 relative group"
+            :class="{ 'text-dj-primary': route.path === link.href && !link.isScroll }"
           >
             {{ link.name }}
-            <span
-              class="absolute left-0 bottom-0 w-full h-[2px] bg-white transition-transform duration-300 ease-in-out origin-left"
-              :class="
-                isClient && isActive(link.path)
-                  ? 'scale-x-100'
-                  : 'scale-x-0 group-hover:scale-x-100'
-              "
-            ></span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-dj-primary transition-all duration-300 group-hover:w-full"></span>
           </NuxtLink>
-        </div>
+        </template>
+        
+        <NuxtLink 
+          to="/contact" 
+          class="px-6 py-2 border border-dj-primary text-dj-primary font-display text-sm uppercase tracking-widest hover:bg-dj-primary hover:text-white transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,119,221,0.4)]"
+        >
+          Book Now
+        </NuxtLink>
       </div>
 
       <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
-      </div>
+      <button @click="isOpen = !isOpen" class="md:hidden text-white hover:text-dj-primary transition-colors focus:outline-none">
+        <Menu v-if="!isOpen" class="w-8 h-8" />
+        <X v-else class="w-8 h-8" />
+      </button>
     </div>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile Menu Overlay -->
     <Transition
-      enter-active-class="transition duration-200 ease-out"
-      enter-from-class="opacity-0 -translate-y-4"
-      enter-to-class="opacity-100 translate-y-0"
-      leave-active-class="transition duration-150 ease-in"
-      leave-from-class="opacity-100 translate-y-0"
-      leave-to-class="opacity-0 -translate-y-4"
+      enter-active-class="transition duration-300 ease-out"
+      enter-from-class="transform -translate-y-10 opacity-0"
+      enter-to-class="transform translate-y-0 opacity-100"
+      leave-active-class="transition duration-200 ease-in"
+      leave-from-class="transform translate-y-0 opacity-100"
+      leave-to-class="transform -translate-y-10 opacity-0"
     >
-      <div
-        v-if="isMobileMenuOpen"
-        class="md:hidden bg-white absolute top-full left-0 w-full shadow-xl border-t"
-      >
-        <div class="container-custom py-6 flex flex-col gap-4">
-          <div v-for="link in navLinks" :key="link.path">
-            <button
-              v-if="link.path.startsWith('action:')"
-              @click="handleNavClick(link)"
-              class="w-full text-left text-gray-700 font-medium hover:text-[#007A33] py-2"
+      <div v-if="isOpen" class="md:hidden absolute top-full left-0 w-full bg-dj-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl">
+        <div class="flex flex-col p-6 space-y-4">
+          <template v-for="link in links" :key="link.name">
+              <a 
+                v-if="link.isScroll && isHome"
+                :href="link.href"
+                @click.prevent="scrollToSection(link.href); isOpen = false"
+                class="text-left text-lg font-display uppercase tracking-widest text-white hover:text-dj-primary transition-colors py-2 border-b border-white/5"
+              >
+                {{ link.name }}
+              </a>
+              <NuxtLink 
+                v-else
+                :to="link.href"
+                @click="isOpen = false"
+                class="text-lg font-display uppercase tracking-widest text-white hover:text-dj-primary transition-colors py-2 border-b border-white/5"
+              >
+                {{ link.name }}
+              </NuxtLink>
+          </template>
+          <div class="pt-4">
+            <NuxtLink 
+              to="/contact" 
+              @click="isOpen = false"
+              class="block w-full px-6 py-3 border border-dj-primary text-dj-primary text-center font-display uppercase tracking-widest font-bold hover:bg-dj-primary hover:text-white transition-colors"
             >
-              {{ link.name }}
-            </button>
-            <NuxtLink
-              v-else
-              :to="link.path"
-              @click="isMobileMenuOpen = false"
-              class="block text-gray-700 font-medium hover:text-[#007A33] py-2"
-            >
-              {{ link.name }}
+              Book Now
             </NuxtLink>
           </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </nav>
 </template>
 
 <script setup>
-import { Menu, X } from "lucide-vue-next";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { Menu, X } from 'lucide-vue-next'
 
-const route = useRoute();
-const isScrolled = ref(false);
-const isMobileMenuOpen = ref(false);
-const isClient = ref(false);
+const route = useRoute()
+const isOpen = ref(false)
+const isScrolled = ref(false)
 
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Thought Leadership", path: "/thought-leadership" },
-  { name: "News & Updates", path: "/news" },
-  { name: "Gallery", path: "/gallery" },
-  { name: "Contact Us", path: "action:contact" },
-];
+const isHome = computed(() => route.path === '/')
 
-const handleNavClick = (link) => {
-  isMobileMenuOpen.value = false;
-  if (link.path === "action:contact") {
-    if (window.Tawk_API && window.Tawk_API.toggle) {
-      window.Tawk_API.toggle();
-    }
+const links = [
+  { name: 'Home', href: '/', isScroll: false },
+  { name: 'Bio', href: '/#bio', isScroll: true },
+  { name: 'Music', href: '/#music', isScroll: true },
+  { name: 'Events', href: '/#events', isScroll: true },
+  { name: 'Gallery', href: '/#gallery', isScroll: true },
+]
+
+const checkScroll = () => {
+  isScrolled.value = window.scrollY > 50
+}
+
+const scrollToSection = (href) => {
+  // Extract id from href (e.g., '/#bio' -> 'bio')
+  if (href === '/') {
+     window.scrollTo({ top: 0, behavior: 'smooth' })
+     return
   }
-};
+  
+  const id = href.split('#')[1]
+  if (!id) return
+  
+  const element = document.getElementById(id)
+  if (element) {
+    const offset = 80 // Height of navbar + buffer
+    const bodyRect = document.body.getBoundingClientRect().top
+    const elementRect = element.getBoundingClientRect().top
+    const elementPosition = elementRect - bodyRect
+    const offsetPosition = elementPosition - offset
 
-const isActive = (path) => {
-  // Return false on server to avoid hydration mismatches
-  if (import.meta.server) return false;
-  if (path === "/") return route.path === "/";
-  if (path.startsWith("action:")) return false;
-  return route.path === path || route.path.startsWith(path + "/");
-};
-
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50;
-};
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    })
+  }
+}
 
 onMounted(() => {
-  isClient.value = true;
-  handleScroll();
-  window.addEventListener("scroll", handleScroll);
-});
+  window.addEventListener('scroll', checkScroll)
+  checkScroll()
+})
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-});
+  window.removeEventListener('scroll', checkScroll)
+})
 </script>
 
 <style scoped>
-.container-custom {
-  @apply container mx-auto px-6;
-}
+/* Ensure smooth transition for mobile menu */
 </style>
