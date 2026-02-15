@@ -1,107 +1,24 @@
 <template>
-  <footer class="bg-[#1a1a1a] text-white py-16 font-sans">
-    <div class="container-custom">
-      <!-- Top Section -->
-      <div
-        class="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-gray-700 pb-12"
-      >
-        <!-- Brand Info -->
-        <div>
-          <div class="mb-4">
-            <!-- Placeholder for Logo if image is not available, using styled text based on image -->
-            <h2 class="text-3xl font-extrabold flex items-center gap-1">
-              <span class="text-white">JKF</span>
-            </h2>
-          </div>
-          <h3 class="text-xl font-medium text-white mb-2">
-            John Kayode Fayemi, PhD.
-          </h3>
-          <p class="text-gray-400 text-xs leading-relaxed max-w-sm">
-            Governor of Ekiti State, Nigeria (2010–2014; 2018–2022) | Minister
-            of Mines & Steel Development (2015-2018) | Chairman, Nigeria
-            Governors’ Forum (2019 - 2022) | Pioneer President, Forum of Regions
-            of Africa (2022– ).
-          </p>
-        </div>
+  <footer class="bg-dj-black border-t border-white/5 py-12 relative overflow-hidden">
+    <!-- Decorative Glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-1 bg-dj-primary/50 blur-[50px] rounded-full"></div>
 
-        <!-- Quick Links -->
-        <div class="md:pl-12">
-          <h3 class="text-base font-bold text-white mb-6">Quick Links</h3>
-          <ul class="flex flex-col gap-3">
-            <li v-for="link in navLinks" :key="link.path">
-              <NuxtLink
-                :to="link.path"
-                class="text-gray-400 hover:text-white transition-colors text-sm"
-              >
-                {{ link.name }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Subscribe -->
-        <div>
-          <h3 class="text-base font-bold text-white mb-6">Subscribe</h3>
-          <form class="flex w-full">
-            <input
-              type="email"
-              placeholder="Stay updated on new publications"
-              class="bg-white text-gray-800 placeholder-gray-400 px-4 py-3 w-full border-none outline-none text-sm"
-            />
-            <button
-              class="bg-green-700 hover:bg-green-800 text-white px-5 flex items-center justify-center transition-colors"
-            >
-              <ArrowRight class="w-5 h-5" />
-            </button>
-          </form>
-        </div>
+    <div class="container mx-auto px-6 text-center">
+      <div class="mb-6 flex justify-center items-center gap-4">
+        <img src="~/assets/css/img/dj_wonlo_no_text-removebg-preview.png" alt="DJ Wonlo" class="h-16 w-auto" />
+        <span class="text-dj-primary font-display text-3xl tracking-[0.2em]">DJ-WONLO</span>
+      </div>
+      
+      <div class="flex justify-center flex-wrap gap-8 mb-8">
+        <a href="https://www.instagram.com/djwonlo/" target="_blank" class="text-gray-400 hover:text-dj-primary transition-colors uppercase tracking-widest text-sm">Instagram</a>
+        <a href="https://www.youtube.com/@DJWonlo" target="_blank" class="text-gray-400 hover:text-dj-primary transition-colors uppercase tracking-widest text-sm">YouTube</a>
+        <a href="https://www.tiktok.com/@deejaywonlo" target="_blank" class="text-gray-400 hover:text-dj-primary transition-colors uppercase tracking-widest text-sm">TikTok</a>
+        <a href="https://soundcloud.com/dj-wonlo" target="_blank" class="text-gray-400 hover:text-dj-primary transition-colors uppercase tracking-widest text-sm">SoundCloud</a>
       </div>
 
-      <!-- Bottom Section -->
-      <div
-        class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
-      >
-        <!-- Social Icons -->
-        <div class="flex gap-4">
-          <a
-            href="#"
-            class="w-8 h-8 rounded-full border border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors"
-          >
-            <Linkedin class="w-4 h-4" />
-          </a>
-          <a
-            href="#"
-            class="w-8 h-8 rounded-full border-gray-600 border flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors"
-          >
-            <Facebook class="w-4 h-4" />
-          </a>
-          <a
-            href="#"
-            class="w-8 h-8 rounded-full border-gray-600 border flex items-center justify-center text-gray-400 hover:text-white hover:border-white transition-colors"
-          >
-            <Twitter class="w-4 h-4" />
-          </a>
-        </div>
-
-        <!-- Copyright -->
-        <p class="text-gray-400 text-xs">
-          &copy; {{ new Date().getFullYear() }} Dr. John Kayode Fayemi. All
-          Rights Reserved.
-        </p>
+      <div class="text-dj-muted text-xs uppercase tracking-widest opacity-60">
+        &copy; {{ new Date().getFullYear() }} Wonlo Entertainment. All Rights Reserved.
       </div>
     </div>
   </footer>
 </template>
-
-<script setup>
-import { Twitter, Linkedin, Facebook, ArrowRight } from "lucide-vue-next";
-
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Thought Leadership", path: "/thought-leadership" },
-  { name: "News & Updates", path: "/news" },
-  { name: "Gallery", path: "/gallery" },
-  { name: "Contact Us", path: "action:contact" },
-];
-</script>

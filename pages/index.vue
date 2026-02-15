@@ -1,17 +1,16 @@
 <template>
-  <div>
-    <TheHero />
-    <HomeBioSummary />
-    <HomeAchievements />
-    <HomePublications />
-    <HomeKeynote />
+  <div class="bg-dj-black min-h-screen text-white font-sans selection:bg-dj-primary selection:text-dj-black">
+    <Navbar />
+    <main>
+      <Hero />
+      <Bio />
+      <Music />
+      <Events />
+      <Gallery />
+    </main>
+    <Footer />
   </div>
 </template>
 
 <script setup>
-import TheHero from "~/components/TheHero.vue";
-import HomeBioSummary from "~/components/HomeBioSummary.vue";
-import HomeAchievements from "~/components/HomeAchievements.vue";
-import HomePublications from "~/components/HomePublications.vue";
-import HomeKeynote from "~/components/HomeKeynote.vue";
 </script>

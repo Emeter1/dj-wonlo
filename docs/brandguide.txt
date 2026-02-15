@@ -1,4 +1,4 @@
-primary: #007A33
+primary: #0077DD
 ash 
 black
 white 

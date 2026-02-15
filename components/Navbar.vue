@@ -42,10 +42,11 @@
       </div>
 
       <!-- Mobile Menu Button -->
-      <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="md:hidden">
-        <Menu v-if="!isMobileMenuOpen" class="text-white" />
-        <X v-else class="text-white" />
-      </button>
+      <div class="md:hidden">
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
     </div>
 
     <!-- Mobile Menu -->
@@ -81,7 +82,7 @@
           </div>
         </div>
       </div>
-    </Transition>
+    </div>
   </nav>
 </template>
 
